@@ -24,8 +24,18 @@ while 1==1:
     bytes_received = psutil.net_io_counters()[1]
 
     disk_usage = psutil.disk_usage('/')[3]
-
-    print(cpu_usage)
+    cursor.execute('insert into Performance values (GETDATE(), '
+                   + str(cpu_usage) + ','
+                   + str(memory_usage) + ','
+                   + str(cpu_interrups) + ','
+                   + str(cpu_calls) + ','
+                   + str(memory_used) + ','
+                   + str(memory_free) + ','
+                   + str(bytes_sent) + ','
+                   + str(bytes_received) + ','
+                   + str(disk_usage) + ')'
+                   )
+    con.commit()
     print(memory_usage)
-    print(bytes_sent)
     time.sleep(1)
+
